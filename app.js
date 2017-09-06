@@ -28,5 +28,35 @@ server.post('/', connector.listen()); // 例：https://xxx.co.jp/
 //=========================================================
 
 bot.dialog('/', function (session) {
-    session.send("Hello World from " + botenv );
+    var str = {
+  "type": "message",
+  "attachmentLayout": "list",
+  "text": "",
+  "attachments": [
+    {
+      "contentType": "application/vnd.microsoft.card.hero",
+      "content": {
+        "text": "What kind of sandwich would you like on your sandwich? ",
+        "buttons": [
+          {
+            "type": "imBack",
+            "title": "BLT",
+            "value": "1"
+          },
+          {
+            "type": "imBack",
+            "title": "Black Forest Ham",
+            "value": "2"
+          },
+          {
+            "type": "imBack",
+            "title": "Buffalo Chicken",
+            "value": "3"
+          }
+        ]
+      }
+    }
+  ]
+}
+    session.send(str);
 });
