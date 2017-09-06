@@ -18,13 +18,15 @@ var connector = new builder.ChatConnector({
     appPassword: process.env.MICROSOFT_APP_PASSWORD // 環境変数より取得する
 });
 var bot = new builder.UniversalBot(connector);
-server.post('/', connector.listen());
+
+// ボットがメッセージとして受け取るURL
+server.post('/', connector.listen()); // 例：https://xxx.co.jp/
+// server.post('/message/api', connector.listen()); 例：https://xxx.co.jp/message/api
 
 //=========================================================
 // Bots Dialogs
 //=========================================================
 
 bot.dialog('/', function (session) {
-    console.log("********send Message********");
     session.send("Hello World from " + botenv );
 });
