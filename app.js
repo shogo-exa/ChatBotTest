@@ -16,8 +16,6 @@ server.listen(process.env.port || process.env.PORT || 3978, function () {
 var connector = new builder.ChatConnector({
     appId: process.env.MICROSOFT_APP_ID,  // 環境変数より取得する
     appPassword: process.env.MICROSOFT_APP_PASSWORD // 環境変数より取得する
-}, function(){
-    console.log("Complete making connector");
 });
 var bot = new builder.UniversalBot(connector);
 server.post('/api/messages', connector.listen());
@@ -27,6 +25,6 @@ server.post('/api/messages', connector.listen());
 //=========================================================
 
 bot.dialog('/', function (session) {
-    console.log("send Message");
+    console.log("********send Message********");
     session.send("Hello World from " + botenv );
 });
