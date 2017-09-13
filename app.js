@@ -5,9 +5,13 @@ var ConversationV1 = require('watson-developer-cloud/conversation/v1');
 /********* logger sertup ***********/
 var fs = require('fs');
 function log(filename, data) {
-    fs.appendFile(filename, data, 'utf8', (err) => {
-        if (err != null) console.log(err);
-    });
+    if (process.env.BOT_ENV == "heroku") {
+        console.log(data)
+    } else {
+        fs.appendFile(filename, data, 'utf8', (err) => {
+            if (err != null) console.log(err);
+        });
+    }
 }
 
 //=========================================================
@@ -67,6 +71,8 @@ bot.dialog('/', (session) => {
             log('V1response.json', rData);
             // クライアントに応答結果を送信する
             var chatData = makeChatData(response);
+            var sData = JSON.stringify(chatData, null, '    ');
+            log('sLog.json', sData);
             session.send(chatData);
         }
     });
