@@ -6,7 +6,10 @@ var ConversationV1 = require('watson-developer-cloud/conversation/v1');
 var fs = require('fs');
 function log(filename, data) {
     if (process.env.BOT_ENV == "heroku") {
+        console.log("*********************" + filename + "*********************")
         console.log(data)
+        console.log("******************************************")
+
     } else {
         fs.appendFile(filename, data, 'utf8', (err) => {
             if (err != null) console.log(err);
