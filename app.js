@@ -102,7 +102,7 @@ function makeChatData(response) {
             break;
         case "Music Appliance Check":
             chatData.attachments[0].contentType = "application/vnd.microsoft.card.hero";
-            chatData.attachments[0].content.text = response.output.text;
+            chatData.attachments[0].content.text = response.output.text[0];
             chatData.attachments[0].content.buttons = [
                 {
                     "type": "imBack",
