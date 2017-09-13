@@ -1,0 +1,247 @@
+{
+    "input": {
+        "text": "hi"
+    },
+    "workspace_id": "4859e3bd-2c8a-4961-ad13-f4500cf15850",
+    "context": null
+}{
+    "input": {
+        "text": "play music"
+    },
+    "workspace_id": "4859e3bd-2c8a-4961-ad13-f4500cf15850",
+    "context": {
+        "conversation_id": "ecb22af7-138c-4453-8cbe-0c17bb7ff398",
+        "system": {
+            "dialog_stack": [
+                {
+                    "dialog_node": "root"
+                }
+            ],
+            "dialog_turn_counter": 1,
+            "dialog_request_counter": 1,
+            "_node_output_map": {
+                "Start And Initialize Context": [
+                    0,
+                    0
+                ]
+            },
+            "branch_exited": true,
+            "branch_exited_reason": "completed"
+        },
+        "AConoff": "off",
+        "lightonoff": "off",
+        "musiconoff": "off",
+        "appl_action": "",
+        "heateronoff": "off",
+        "volumeonoff": "off",
+        "wipersonoff": "off",
+        "default_counter": 0
+    }
+}{
+    "input": {
+        "text": "hi"
+    },
+    "workspace_id": "4859e3bd-2c8a-4961-ad13-f4500cf15850",
+    "context": null
+}{
+    "input": {
+        "text": "hi"
+    },
+    "workspace_id": "4859e3bd-2c8a-4961-ad13-f4500cf15850",
+    "context": null
+}{
+    "input": {
+        "text": "k"
+    },
+    "workspace_id": "4859e3bd-2c8a-4961-ad13-f4500cf15850",
+    "context": null
+}{
+    "input": {
+        "text": "plau music"
+    },
+    "workspace_id": "4859e3bd-2c8a-4961-ad13-f4500cf15850",
+    "context": {
+        "conversation_id": "0e811737-ee31-4a46-89d8-09dc97bbc812",
+        "system": {
+            "dialog_stack": [
+                {
+                    "dialog_node": "root"
+                }
+            ],
+            "dialog_turn_counter": 1,
+            "dialog_request_counter": 1,
+            "_node_output_map": {
+                "Start And Initialize Context": [
+                    0,
+                    0
+                ]
+            },
+            "branch_exited": true,
+            "branch_exited_reason": "completed"
+        },
+        "AConoff": "off",
+        "lightonoff": "off",
+        "musiconoff": "off",
+        "appl_action": "",
+        "heateronoff": "off",
+        "volumeonoff": "off",
+        "wipersonoff": "off",
+        "default_counter": 0
+    }
+}{
+    "input": {
+        "text": "hi"
+    },
+    "workspace_id": "4859e3bd-2c8a-4961-ad13-f4500cf15850",
+    "context": null
+}{
+    "input": {
+        "text": "play music"
+    },
+    "workspace_id": "4859e3bd-2c8a-4961-ad13-f4500cf15850",
+    "context": {
+        "conversation_id": "69994110-da5a-4b0b-8c2e-c6e76b2f49f0",
+        "system": {
+            "dialog_stack": [
+                {
+                    "dialog_node": "root"
+                }
+            ],
+            "dialog_turn_counter": 1,
+            "dialog_request_counter": 1,
+            "_node_output_map": {
+                "Start And Initialize Context": [
+                    0,
+                    0
+                ]
+            },
+            "branch_exited": true,
+            "branch_exited_reason": "completed"
+        },
+        "AConoff": "off",
+        "lightonoff": "off",
+        "musiconoff": "off",
+        "appl_action": "",
+        "heateronoff": "off",
+        "volumeonoff": "off",
+        "wipersonoff": "off",
+        "default_counter": 0
+    }
+}{
+    "input": {
+        "text": "k"
+    },
+    "workspace_id": "4859e3bd-2c8a-4961-ad13-f4500cf15850",
+    "context": null
+}{
+    "input": {
+        "text": "play music"
+    },
+    "workspace_id": "4859e3bd-2c8a-4961-ad13-f4500cf15850",
+    "context": {
+        "conversation_id": "177e6dd8-8cc6-401c-bb94-cf4d22ae4079",
+        "system": {
+            "dialog_stack": [
+                {
+                    "dialog_node": "root"
+                }
+            ],
+            "dialog_turn_counter": 1,
+            "dialog_request_counter": 1,
+            "_node_output_map": {
+                "Start And Initialize Context": [
+                    0,
+                    0
+                ]
+            },
+            "branch_exited": true,
+            "branch_exited_reason": "completed"
+        },
+        "AConoff": "off",
+        "lightonoff": "off",
+        "musiconoff": "off",
+        "appl_action": "",
+        "heateronoff": "off",
+        "volumeonoff": "off",
+        "wipersonoff": "off",
+        "default_counter": 0
+    }
+}{
+    "input": {
+        "text": "hi"
+    },
+    "workspace_id": "4859e3bd-2c8a-4961-ad13-f4500cf15850",
+    "context": null
+}{
+    "input": {
+        "text": "play music"
+    },
+    "workspace_id": "4859e3bd-2c8a-4961-ad13-f4500cf15850",
+    "context": {
+        "conversation_id": "f06d9cd5-e046-4f4a-9893-df6968434858",
+        "system": {
+            "dialog_stack": [
+                {
+                    "dialog_node": "root"
+                }
+            ],
+            "dialog_turn_counter": 1,
+            "dialog_request_counter": 1,
+            "_node_output_map": {
+                "Start And Initialize Context": [
+                    0,
+                    0
+                ]
+            },
+            "branch_exited": true,
+            "branch_exited_reason": "completed"
+        },
+        "AConoff": "off",
+        "lightonoff": "off",
+        "musiconoff": "off",
+        "appl_action": "",
+        "heateronoff": "off",
+        "volumeonoff": "off",
+        "wipersonoff": "off",
+        "default_counter": 0
+    }
+}{
+    "input": {
+        "text": "hi"
+    },
+    "workspace_id": "4859e3bd-2c8a-4961-ad13-f4500cf15850",
+    "context": null
+}{
+    "input": {
+        "text": "play music"
+    },
+    "workspace_id": "4859e3bd-2c8a-4961-ad13-f4500cf15850",
+    "context": {
+        "conversation_id": "8d60ad9b-da99-4ffa-8789-6949e8d3539a",
+        "system": {
+            "dialog_stack": [
+                {
+                    "dialog_node": "root"
+                }
+            ],
+            "dialog_turn_counter": 1,
+            "dialog_request_counter": 1,
+            "_node_output_map": {
+                "Start And Initialize Context": [
+                    0,
+                    0
+                ]
+            },
+            "branch_exited": true,
+            "branch_exited_reason": "completed"
+        },
+        "AConoff": "off",
+        "lightonoff": "off",
+        "musiconoff": "off",
+        "appl_action": "",
+        "heateronoff": "off",
+        "volumeonoff": "off",
+        "wipersonoff": "off",
+        "default_counter": 0
+    }
+}
