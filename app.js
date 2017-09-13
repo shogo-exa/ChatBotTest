@@ -97,9 +97,6 @@ function makeChatData(response) {
         ]
     }
     switch (response.context.system.dialog_stack[0].dialog_node) {
-        case "root":
-            chatData = response.output.text;
-            break;
         case "Music Appliance Check":
             chatData.attachments[0].contentType = "application/vnd.microsoft.card.hero";
             chatData.attachments[0].content.text = response.output.text[0];
@@ -111,16 +108,47 @@ function makeChatData(response) {
                 },
                 {
                     "type": "imBack",
-                    "title": "POP",
-                    "value": "POP"
+                    "title": "J-Pop",
+                    "value": "J-Pop"
                 },
                 {
                     "type": "imBack",
-                    "title": "classic",
-                    "value": "classic"
+                    "title": "jazz",
+                    "value": "jazz"
                 }
             ]
             break;
+
+        case "node_14_1467234311677":
+            chatData.attachments[0].contentType = "application/vnd.microsoft.card.hero";
+            chatData.attachments[0].content.text = response.output.text[0];
+            chatData.attachments[0].content.buttons = [
+                {
+                    "type": "imBack",
+                    "title": "tacos",
+                    "value": "tacos"
+                },
+                {
+                    "type": "imBack",
+                    "title": "burgers",
+                    "value": "burgers"
+                },
+                {
+                    "type": "imBack",
+                    "title": "seafood",
+                    "value": "seafood"
+                },
+                {
+                    "type": "imBack",
+                    "title": "pasta",
+                    "value": "pasta"
+                }
+            ]
+            break;
+        default:
+            chatData = response.output.text;
+            break;
+
     }
     return chatData;
 }
