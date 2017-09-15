@@ -5,15 +5,15 @@ var ConversationV1 = require('watson-developer-cloud/conversation/v1');
 /********* logger sertup ***********/
 var fs = require('fs');
 function log(filename, data) {
-    if (process.env.BOT_ENV == "heroku") {
-        console.log("*********************" + filename + "*********************")
-        console.log(data)
-        console.log("******************************************")
-
-    } else {
+    if (process.env.BOT_ENV == "local") {
         fs.appendFile(filename, data, 'utf8', (err) => {
             if (err != null) console.log(err);
         });
+
+    } else {
+        console.log("*********************" + filename + "*********************")
+        console.log(data)
+        console.log("******************************************")
     }
 }
 
@@ -61,6 +61,8 @@ bot.dialog('/', (session) => {
     };
     var reqData = JSON.stringify(reqJson, null, '    ');
     log('V1Request.json', reqData);
+
+    // conversationへメッセージを送信する
     conversation.message(reqJson, (err, response) => {
         if (err) {
             console.error("************** V1message error ***************")
@@ -72,7 +74,7 @@ bot.dialog('/', (session) => {
             // conversationからの応答をファイルに出力する
             var rData = JSON.stringify(response, null, '    ');
             log('V1response.json', rData);
-            // クライアントに応答結果を送信する
+            // クライアントへの応答データを作成する
             var chatData = makeChatData(response);
             var sData = JSON.stringify(chatData, null, '    ');
             log('sLog.json', sData);
@@ -81,6 +83,7 @@ bot.dialog('/', (session) => {
     });
 });
 
+// conversation の現在の状態に応じて応答データを作成する
 function makeChatData(response) {
     var chatData = {
         "type": "message",
@@ -97,6 +100,7 @@ function makeChatData(response) {
         ]
     }
     switch (response.context.system.dialog_stack[0].dialog_node) {
+        // かける音楽のジャンルをユーザーに問いかける
         case "Music Appliance Check":
             chatData.attachments[0].contentType = "application/vnd.microsoft.card.hero";
             chatData.attachments[0].content.text = response.output.text[0];
@@ -119,6 +123,7 @@ function makeChatData(response) {
             ]
             break;
 
+        // 食事のジャンルをユーザーに問いかける
         case "node_14_1467234311677":
             chatData.attachments[0].contentType = "application/vnd.microsoft.card.hero";
             chatData.attachments[0].content.text = response.output.text[0];
@@ -145,6 +150,8 @@ function makeChatData(response) {
                 }
             ]
             break;
+
+        // conversation の応答をそのままユーザーに返す
         default:
             chatData = response.output.text;
             break;

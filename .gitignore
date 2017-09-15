@@ -60,3 +60,5 @@ typings/
 V1Request.json
 V1response.json
 sLog.json
+sessionData.json
+/.vscode/
