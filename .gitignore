@@ -62,3 +62,7 @@ V1response.json
 sLog.json
 sessionData.json
 /.vscode/
+session.json
+
+arg.json
+memo.txt
