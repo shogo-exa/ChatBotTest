@@ -26,6 +26,6 @@ server.post('/', connector.listen()); // 例：https://xxx.co.jp/multi
 
 var bot = module.exports = new builder.UniversalBot(connector);
 bot.dialog('/', (session) => {
-    loger.log('session',session);
+    loger.log('session',session.message);
     session.send(session.message.text);
 });
