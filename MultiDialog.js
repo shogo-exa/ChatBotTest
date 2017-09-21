@@ -2,13 +2,9 @@
 const builder = require('botbuilder');
 const loger = require('./log.js');
 
-var connector = new builder.ChatConnector({
-    appId: process.env.MICROSOFT_APP_ID,  // 環境変数より取得する
-    appPassword: process.env.MICROSOFT_APP_PASSWORD // 環境変数より取得する
-});
-
 // Create chat bot
-const bot = module.exports = new builder.UniversalBot(connector, [
+var lib = new builder.Library('MultiDialog');
+lib.dialog('/', [
     // this section becomes the root dialog
     // If a conversation hasn't been started, and the message
     // sent by the user doesn't match a pattern, the
@@ -54,7 +50,7 @@ const bot = module.exports = new builder.UniversalBot(connector, [
     },
 ]);
 
-bot.dialog('getName', [
+lib.dialog('getName', [
     (session, args, next) => {
         // store reprompt flag
         if (args) {
@@ -91,7 +87,7 @@ bot.dialog('getName', [
     }
 ]);
 
-bot.dialog('getAge', [
+lib.dialog('getAge', [
     (session, args, next) => {
         let name = session.dialogData.name = 'User';
 
@@ -133,3 +129,8 @@ bot.dialog('getAge', [
         }
     }
 ]);
+
+// Export createLibrary() function
+module.exports.createLibrary = function () {
+    return lib.clone();
+};

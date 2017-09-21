@@ -8,35 +8,27 @@ var connector = new builder.ChatConnector({
     appPassword: process.env.MICROSOFT_APP_PASSWORD // 環境変数より取得する
 });
 // Create chat bot
-var bot = module.exports = new builder.UniversalBot(connector, [
+var lib = new builder.Library('sendImage');
+lib.dialog('/', [
     (session, args, next) => {
-        var chatData = new builder.Message(session);
-        chatData.attachmentLayout(builder.AttachmentLayout.carousel);
-        chatData.attachments([
-            new builder.HeroCard(session)
-                .title('Image Select')
-                .text("What kind of AI do you like?")
-                .buttons([
-                    builder.CardAction.imBack(session, 'Watson', 'Watson'),
-                    builder.CardAction.imBack(session, 'siri', 'siri'),
-                    builder.CardAction.imBack(session, 'Cortana', 'Cortana')
-                ])
-        ]);
-        session.send(chatData);
-        session.beginDialog('selectAI', { ai: ai });
+        loger.outputConsole('image.js', 'step 1');
+
+        var msg = session.message;
+        session.endConversation({
+            text: "My Company:",
+            attachments: [
+                {
+                    contentType: "image/jpeg",
+                    contentUrl: "https://prtimes.jp/i/1318/148/resize/d1318-148-118221-1.jpg",
+                    name: "exa_logo"
+                }
+            ]
+        });
+
     }
 ]);
-bot.dialog('selectAI', (session) => {
-    const ai = session.message;
-    var chatData = new builder.Message(session);
-    switch (ai) {
-        case 'Watson':
-            break;
 
-        case 'siri':
-            break;
-
-        case 'Cortana':
-            break;
-    }
-});
+// Export createLibrary() function
+module.exports.createLibrary = function () {
+    return lib.clone();
+};

@@ -1,6 +1,4 @@
 var restify = require('restify');
-const cardBot = require('./HeroCard.js');
-const mltDialogBot = require('./MultiDialog.js');
 var builder = require('botbuilder');
 const loger = require('./log.js');
 
@@ -18,14 +16,55 @@ var connector = new builder.ChatConnector({
     appPassword: process.env.MICROSOFT_APP_PASSWORD // 環境変数より取得する
 });
 
-// ボットがメッセージとして受け取るURL
-server.post('/card', cardBot.connector('*').listen()); // 例：https://xxx.co.jp/card
-server.post('/multi', mltDialogBot.connector('*').listen()); // 例：https://xxx.co.jp/multi
+// ボットがメッセージを受け取るURL
 server.post('/', connector.listen()); // 例：https://xxx.co.jp/multi
 // server.post('/message/api', connector.listen()); 例：https://xxx.co.jp/message/api
 
-var bot = module.exports = new builder.UniversalBot(connector);
-bot.dialog('/', (session) => {
-    loger.log('session',session.message);
-    session.send(session.message.text);
-});
+var bot = module.exports = new builder.UniversalBot(connector, [
+    (session, args, next) => {
+        loger.outputConsole('app.js', 'step 1');
+        var chatData = new builder.Message(session);
+        chatData.attachmentLayout(builder.AttachmentLayout.carousel);
+        chatData.attachments([
+            new builder.HeroCard(session)
+                .title('機能選択')
+                .subtitle('ヒーローカード')
+                .text('どのサンプルを実行しますか')
+                .buttons([
+                    builder.CardAction.imBack(session, 'MultiDialog', '対話'),
+                    builder.CardAction.imBack(session, 'HeroCard', 'ヒーローカード'),
+                    builder.CardAction.imBack(session, 'SigninCard', 'サインインカード'),
+                    builder.CardAction.imBack(session, 'Image', '画像')
+                ])
+        ]);
+        builder.Prompts.text(session, chatData);
+    },
+    (session, res, next) => {
+        const userSelect = res.response;
+        loger.outputConsole('app.js', 'step 2  ' + userSelect);
+        switch (userSelect) {
+            case 'MultiDialog':
+                session.beginDialog('MultiDialog:/')
+                break;
+
+            case 'HeroCard':
+                session.beginDialog('Cards:Hero');
+                break;
+
+            case 'SigninCard':
+                session.beginDialog('Cards:Signin');
+                break;
+
+            case 'Image':
+                session.beginDialog('sendImage:/');
+                break;
+
+            default:
+                session.replaceDialog('/');
+
+        }
+    },
+]);
+bot.library(require('./Cards').createLibrary());
+bot.library(require('./MultiDialog').createLibrary());
+bot.library(require('./SendImage').createLibrary());

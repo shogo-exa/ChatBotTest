@@ -1,12 +1,28 @@
+'use strict'
+
 var fs = require('fs');
 var DATATYPE = {
     json: 'json',
     txt: 'txt'
 }
-const line = '\r\n*******************************************************\r\n'
+const line = '\r\n*******************************************************\r\n';
 
-module.exports = {
-    log: function (filename, data) {
+class loger {
+    constructor(){};
+    outputFile (filename, logData) {
+        fs.appendFile(filename, logData, 'utf8', (err) => {
+            if (err != null) console.log(err);
+        });
+        fs.appendFile(filename, line, 'utf8', (err) => {
+            if (err != null) console.log(err);
+        });
+    }
+    outputConsole (name, logData) {
+        console.log("\r\n*********************" + name + "*********************\r\n");
+        console.log(logData);
+        console.log("\r\n******************************************");
+    }
+    log (name, data) {
         var logData;
         var dataType;
         try {
@@ -19,16 +35,11 @@ module.exports = {
             }
         }
         if (process.env.BOT_ENV == "local" && dataType == DATATYPE.json) {
-            fs.appendFile(filename + '.json', logData, 'utf8', (err) => {
-                if (err != null) console.log(err);
-            });
-            fs.appendFile(filename + '.json', line, 'utf8', (err) => {
-                if (err != null) console.log(err);
-            });
+            outputFile(name + '.json', logData);
         } else {
-            console.log("\r\n*********************" + filename + "*********************\r\n");
-            console.log(logData);
-            console.log("\r\n******************************************");
+            outputConsole(name, logData);
         }
     }
 }
+
+module.exports = new loger();
