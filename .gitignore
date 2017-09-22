@@ -58,7 +58,6 @@ typings/
 .env
 
 /.vscode/
-
 *.json
 memo.txt
 setENV.bat
