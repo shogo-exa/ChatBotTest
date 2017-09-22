@@ -19,7 +19,7 @@ lib.dialog('/', [
             attachments: [
                 {
                     contentType: "image/jpeg",
-                    contentUrl: "https://prtimes.jp/i/1318/148/resize/d1318-148-118221-1.jpg",
+                    contentUrl: "./logo.jpg",
                     name: "exa_logo"
                 }
             ]

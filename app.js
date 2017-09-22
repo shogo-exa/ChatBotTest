@@ -22,7 +22,7 @@ server.post('/', connector.listen()); // 例：https://xxx.co.jp/
 
 var bot = module.exports = new builder.UniversalBot(connector, [
     (session, args, next) => {
-        loger.console('app.js', 'step 1');
+        loger.log('start', session.message);
         var chatData = new builder.Message(session);
         chatData.attachmentLayout(builder.AttachmentLayout.carousel);
         chatData.attachments([
