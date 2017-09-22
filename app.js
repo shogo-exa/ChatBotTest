@@ -22,7 +22,7 @@ server.post('/', connector.listen()); // 例：https://xxx.co.jp/multi
 
 var bot = module.exports = new builder.UniversalBot(connector, [
     (session, args, next) => {
-        loger.outputConsole('app.js', 'step 1');
+        loger.console('app.js', 'step 1');
         var chatData = new builder.Message(session);
         chatData.attachmentLayout(builder.AttachmentLayout.carousel);
         chatData.attachments([
@@ -41,7 +41,7 @@ var bot = module.exports = new builder.UniversalBot(connector, [
     },
     (session, res, next) => {
         const userSelect = res.response;
-        loger.outputConsole('app.js', 'step 2  ' + userSelect);
+        loger.console('app.js', 'step 2  ' + userSelect);
         switch (userSelect) {
             case 'MultiDialog':
                 session.beginDialog('MultiDialog:/')

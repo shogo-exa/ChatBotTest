@@ -11,7 +11,7 @@ var connector = new builder.ChatConnector({
 var lib = new builder.Library('sendImage');
 lib.dialog('/', [
     (session, args, next) => {
-        loger.outputConsole('image.js', 'step 1');
+        loger.console('image.js', 'step 1');
 
         var msg = session.message;
         session.endConversation({

@@ -8,8 +8,8 @@ var DATATYPE = {
 const line = '\r\n*******************************************************\r\n';
 
 class loger {
-    constructor(){};
-    outputFile (filename, logData) {
+    constructor() { };
+    file(filename, logData) {
         fs.appendFile(filename, logData, 'utf8', (err) => {
             if (err != null) console.log(err);
         });
@@ -17,12 +17,12 @@ class loger {
             if (err != null) console.log(err);
         });
     }
-    outputConsole (name, logData) {
+    console(name, logData) {
         console.log("\r\n********************* " + name + " *********************\r\n");
         console.log(logData);
         console.log("\r\n******************************************");
     }
-    log (name, data) {
+    log(name, data) {
         var logData;
         var dataType;
         try {
@@ -35,9 +35,9 @@ class loger {
             }
         }
         if (process.env.BOT_ENV == "local" && dataType == DATATYPE.json) {
-            outputFile(name + '.json', logData);
+            this.file(name + '.json', logData);
         } else {
-            outputConsole(name, logData);
+            this.console(name, logData);
         }
     }
 }

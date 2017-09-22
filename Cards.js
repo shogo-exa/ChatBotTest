@@ -9,13 +9,13 @@ const loger = require('./log.js');
 var lib = new builder.Library('Cards');
 lib.dialog('/', [
     (session, args, next) => {
-        loger.outputConsole('cards.js', 'step 1');
+        loger.console('cards.js', 'step 1');
         var chatData = '表示するカードの種類を記入してください(Hero, Signin)'
         builder.Prompts.text(session, chatData);
     },
     (session, res, next) => {
         const userSelect = res.response;
-        loger.outputConsole('cards.js', 'step 2  ' + userSelect);
+        loger.console('cards.js', 'step 2  ' + userSelect);
         switch (userSelect) {
             case 'Hero':
                 session.beginDialog('HeroCard');
