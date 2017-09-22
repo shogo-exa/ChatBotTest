@@ -18,9 +18,9 @@ class loger {
         });
     }
     console(name, logData) {
-        console.log("\r\n********************* " + name + " *********************\r\n");
+        console.log("********************* " + name + " *********************");
         console.log(logData);
-        console.log("\r\n******************************************");
+        console.log("******************************************");
     }
     log(name, data) {
         var logData;
