@@ -19,8 +19,13 @@ lib.dialog('/', [
             attachments: [
                 {
                     contentType: "image/jpeg",
-                    contentUrl: "./logo.jpg",
+                    contentUrl: "https://prtimes.jp/i/1318/148/resize/d1318-148-118221-1.jpg",
                     name: "exa_logo"
+                },
+                {
+                    contentType: "text/plain",
+                    contentUrl: "http://www.exa-corp.co.jp",
+                    name: "webサイトはこちら"
                 }
             ]
         });
