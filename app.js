@@ -72,6 +72,7 @@ bot.library(require('./SendImage').createLibrary());
 
 bot.on('conversationUpdate', function (message) {
     if (message.membersAdded) {
+        loger.log("join Member", message);
         var membersAdded = message.membersAdded
             .map((m) => {
                 var isSelf = m.id === message.address.bot.id;
@@ -85,15 +86,16 @@ bot.on('conversationUpdate', function (message) {
         bot.send(reply);
     }
     if (message.membersRemoved) {
-      var membersRemoved = message.membersRemoved
-          .map((m) => {
-              var isSelf = m.id === message.address.bot.id;
-              return (isSelf ? message.address.bot.name : m.name);
-          })
-          .join(', ');
-      var reply = new builder.Message()
-          .address(message.address)
-          .text('ばいばーい' + membersRemoved);
-      bot.send(reply);
+        loger.log("join Member", message);
+        var membersRemoved = message.membersRemoved
+            .map((m) => {
+                var isSelf = m.id === message.address.bot.id;
+                return (isSelf ? message.address.bot.name : m.name);
+            })
+            .join(', ');
+        var reply = new builder.Message()
+            .address(message.address)
+            .text('ばいばーい' + membersRemoved);
+        bot.send(reply);
     }
 });
