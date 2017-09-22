@@ -70,7 +70,7 @@ bot.library(require('./MultiDialog').createLibrary());
 bot.library(require('./SendImage').createLibrary());
 
 
-bot.on('conversationUpdate', function (message) {
+bot.on('member_joined_channel', function (message) {
     if (message.membersAdded && message.membersAdded.length > 0) {
         // Say hello
         var isGroup = message.address.conversation.isGroup;
