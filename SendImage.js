@@ -12,8 +12,7 @@ var lib = new builder.Library('sendImage');
 lib.dialog('/', [
     (session, args, next) => {
         loger.console('image.js', 'step 1');
-
-        var msg = session.message;
+        loger.console("session", session)
         session.endConversation({
             text: "My Company:",
             attachments: [
