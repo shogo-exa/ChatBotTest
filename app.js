@@ -84,6 +84,7 @@ bot.on('conversationUpdate', function (message) {
             .address(message.address)
             .text('いらっしゃいませー ' + membersAdded + ' さん');
         bot.send(reply);
+        bot.send("講座に関する質問はここにしてください")
     }
     if (message.membersRemoved) {
         loger.log("join Member", message);
