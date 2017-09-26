@@ -80,6 +80,7 @@ bot.on('conversationUpdate', function (message) {
             })
             .join(', ');
 
+        loger.log("joinReply", bot)
         var reply = new builder.Message()
             .address(message.address)
             .text('いらっしゃいませー ' + membersAdded + ' さん');
