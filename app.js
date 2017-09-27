@@ -71,6 +71,8 @@ bot.library(require('./SendImage').createLibrary());
 
 
 bot.on('conversationUpdate', function (message) {
+    loger.log("conversationUpdate", message)
+
     if (message.membersAdded) {
         loger.log("join Member", message);
         var membersAdded = message.membersAdded
