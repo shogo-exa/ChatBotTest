@@ -4,127 +4,118 @@ const loger = require('./log.js');
 
 // Create chat bot
 var lib = new builder.Library('MultiDialog');
+
+// rootDialogの定義
+// rootはこのダイアログに遷移してきた時に、指定のパターンがマッチングしなかったとき
+// 自動で呼び出されるダイアログ。
+// ここで言うと、getNameとgetAge以外が指定された時
 lib.dialog('/', [
-    // this section becomes the root dialog
-    // If a conversation hasn't been started, and the message
-    // sent by the user doesn't match a pattern, the
-    // conversation will start here
     (session, args, next) => {
+        // ユーザーへテキストを送信する
         session.send(`Hi there! I'm a sample bot showing how multiple dialogs work.`);
         session.send(`Let's start the first dialog, which will ask you your name.`);
 
-        // Launch the getName dialog using beginDialog
-        // When beginDialog completes, control will be passed
-        // to the next function in the waterfall
+        // getNameダイアログを開始する
         session.beginDialog('getName');
     },
     (session, results, next) => {
-        // executed when getName dialog completes
-        // results parameter contains the object passed into endDialogWithResults
 
-        // check for a response
+        // getNameダイアログの終了時に返信結果が登録されているはずなのでその存在をチェックしている
         if (results.response) {
+            // 先のダイアログでは名前を取得しているのでそれを受け取っている
+            // session.privateConversationDataは、ユーザー個人の情報を会話終了まで保持することが出来る領域
+            // その他にもconversationDataなどもあるが、会話に参加している他ユーザーからも参照可能などスコープの違いがある
+            // botbuilder\lib\botbuilder.d.ts:1686行目
             const name = session.privateConversationData.name = results.response;
 
-            // When calling another dialog, you can pass arguments in the second parameter
+            //getAgeを開始する この時に取得した名前を渡している
             session.beginDialog('getAge', { name: name });
         } else {
-            // no valid response received - End the conversation
+            // もしresponseが存在しなかったときは、何か問題があったということなので会話を終了しています
             session.endConversation(`Sorry, I didn't understand the response. Let's start over.`);
         }
     },
     (session, results, next) => {
-        // executed when getAge dialog completes
-        // results parameter contains the object passed into endDialogWithResults
-
-        // check for a response
         if (results.response) {
+            // ここまでで収集したデータを集めて、それを使ってユーザーに応答している
             const age = session.privateConversationData.age = results.response;
             const name = session.privateConversationData.name;
 
             session.endConversation(`Hello ${name}. You are ${age}`);
         } else {
-            // no valid response received - End the conversation
             session.endConversation(`Sorry, I didn't understand the response. Let's start over.`);
         }
     },
-]);
-
+])
+// 名前を収集するためのダイアログ
 lib.dialog('getName', [
     (session, args, next) => {
-        // store reprompt flag
         if (args) {
+            // 一度失敗していることを示すデータを取得
             session.dialogData.isReprompt = args.isReprompt;
         }
-
-        // prompt user
+        // 名前を聞く
         builder.Prompts.text(session, 'What is your name?');
     },
     (session, results, next) => {
+        // ユーザーからの返事を取得
         const name = results.response;
 
+        // 名前として有効かどうかをチェックしている (ここでは長さのみ)
         if (!name || name.trim().length < 3) {
-            // Bad response. Logic for single re-prompt
+            // ある程度失敗すると終了させないと、正常な値をユーザーが入力するまで
+            // いつまでも状態が変わらない事になり、UXが非常に悪くなってしまう。
+            // それを回避する為に1度失敗しているならこのダイアログを終了させる
             if (session.dialogData.isReprompt) {
-                // Re-prompt ocurred
-                // Send back empty string
                 session.endDialogWithResult({ response: '' });
             } else {
-                // Set the flag
+                // 初回入力時は期待する入力値をユーザーに伝える
                 session.send('Sorry, name must be at least 3 characters.');
 
-                // Call replaceDialog to start the dialog over
-                // This will replace the active dialog on the stack
-                // Send a flag to ensure we only reprompt once
+                // getNameをもう1度最初から実施する。
+                // 1ど失敗したことを記録する為にisRepromptを渡している
                 session.replaceDialog('getName', { isReprompt: true });
             }
         } else {
-            // Valid name received
-            // Return control to calling dialog
-            // Pass the name in the response property of results
+            // 正常に入力されたので名前を親のダイアログに引き継いで終了する
             session.endDialogWithResult({ response: name.trim() });
         }
     }
 ]);
 
+// 年齢を取得するためのダイアログ
 lib.dialog('getAge', [
     (session, args, next) => {
         let name = session.dialogData.name = 'User';
 
         if (args) {
-            // store reprompt flag
             session.dialogData.isReprompt = args.isReprompt;
 
-            // retrieve name
+            // getNameで取得したデータは32行目で渡されており
+            // argsに格納されているので取得する
             name = session.dialogData.name = args.name;
         }
-
-        // prompt user
+        // 取得した名前を使用して年齢を聞く
         builder.Prompts.number(session, `How old are you, ${name}?`);
     },
     (session, results, next) => {
+        // ユーザーからの返信を取得する
         const age = results.response;
-
-        // Basic validation - did we get a response?
+        // 取得したデータが期待する値なのかを判定する
         if (!age || age < 13 || age > 90) {
-            // Bad response. Logic for single re-prompt
+            // 1度失敗しているかをチェック
             if (session.dialogData.isReprompt) {
-                // Re-prompt ocurred
-                // Send back empty string
+                // 1度失敗しているときは終了(理由は79行目)
                 session.endDialogWithResult({ response: '' });
             } else {
-                // Set the flag
+                // データに不備があったので再度問い合わせる
                 session.dialogData.didReprompt = true;
                 session.send(`Sorry, that doesn't look right.`);
-                // Call replaceDialog to start the dialog over
-                // This will replace the active dialog on the stack
                 session.replaceDialog('getAge',
                     { name: session.dialogData.name, isReprompt: true });
             }
         } else {
-            // Valid city received
-            // Return control to calling dialog
-            // Pass the city in the response property of results
+            // 年齢を戻してダイアログを終了する
             session.endDialogWithResult({ response: age });
         }
     }
