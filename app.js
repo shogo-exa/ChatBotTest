@@ -94,8 +94,6 @@ var bot = module.exports = new builder.UniversalBot(connector, [
                 session.replaceDialog('/');
 
         }
-    }, (session, res, next) => {
-        session.send("hahaha!");
     }
 ]);
 // 別のjsファイルに定義したDialogを読み込んでいる
