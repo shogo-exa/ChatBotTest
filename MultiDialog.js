@@ -57,7 +57,7 @@ lib.dialog('/', [
     confirmPrompt: "Are you sure?",
     // テスト中
     onSelectAction: (session, args, next) => {
-        srssion.endConversation();
+        session.endConversation();
     }
 });
 
