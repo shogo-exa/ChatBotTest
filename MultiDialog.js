@@ -46,7 +46,21 @@ lib.dialog('/', [
             session.endConversation(`Sorry, I didn't understand the response. Let's start over.`);
         }
     },
-])
+    // ダイアログを途中でキャンセルする為の定義
+    // 第1引数：このアクションの名前を定義
+    // 第2引数：キャンセルされた時にユーザーへその文字列が送信される
+    // ※カレントダイアログが終了して親ダイアログに戻るが、親はそのまま再開されるので注意
+]).cancelAction('cancelMultiDialog', "canceled", {
+    // キャンセルのトリガーとなるパターンを定義
+    matches: /^cancel/i,
+    // キャンセルを再度確認する為にユーザーへ送信される文字列
+    confirmPrompt: "Are you sure?",
+    // テスト中
+    onSelectAction: (session, args, next) => {
+        srssion.endConversation();
+    }
+});
+
 // 名前を収集するためのダイアログ
 lib.dialog('getName', [
     (session, args, next) => {
