@@ -55,11 +55,6 @@ lib.dialog('/', [
     matches: /^cancel/i,
     // キャンセルを再度確認する為にユーザーへ送信される文字列
     confirmPrompt: "Are you sure?",
-    // テスト中
-    onSelectAction: (session, args, next) => {
-        session.send("test")
-        next();
-    }
 });
 
 // 名前を収集するためのダイアログ
@@ -96,7 +91,12 @@ lib.dialog('getName', [
             session.endDialogWithResult({ response: name.trim() });
         }
     }
-]);
+]).cancelAction('cancelMultiDialog', "canceled", {
+    // キャンセルのトリガーとなるパターンを定義
+    matches: /^cancel/i,
+    // キャンセルを再度確認する為にユーザーへ送信される文字列
+    confirmPrompt: "Are you sure?",
+});
 
 // 年齢を取得するためのダイアログ
 lib.dialog('getAge', [
@@ -134,7 +134,12 @@ lib.dialog('getAge', [
             session.endDialogWithResult({ response: age });
         }
     }
-]);
+]).cancelAction('cancelMultiDialog', "canceled", {
+    // キャンセルのトリガーとなるパターンを定義
+    matches: /^cancel/i,
+    // キャンセルを再度確認する為にユーザーへ送信される文字列
+    confirmPrompt: "Are you sure?",
+});
 
 // Export createLibrary() function
 module.exports.createLibrary = function () {
