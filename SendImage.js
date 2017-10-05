@@ -1,5 +1,4 @@
 const builder = require('botbuilder');
-const ConversationV1 = require('watson-developer-cloud/conversation/v1');
 const loger = require('./log.js');
 
 // Create chat bot
