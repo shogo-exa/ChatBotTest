@@ -10,10 +10,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@slack/client": "^3.13.0",
     "botbuilder": "^3.9.1",
     "request": "2.81.0",
-    "restify": "^5.2.0",
-    "watson-developer-cloud": "^2.39.0"
+    "restify": "^5.2.0"
   }
 }
