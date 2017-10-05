@@ -46,9 +46,9 @@ lib.dialog('Hero', (session) => {
             .subtitle('音楽')
             .text('どのジャンルが好きですか？')
             .buttons([
-                // 第1引数はボタンをクリックした時にボットへ送信される文字列
+                // 第2引数はボタンをクリックした時にボットへ送信される文字列
                 //   アプリによってはユーザーの発言としてチャット欄に表示される
-                // 第2引数はボタンのタイトル
+                // 第3引数はボタンのタイトル
                 builder.CardAction.imBack(session, 'Rock', 'Rock'),
                 builder.CardAction.imBack(session, 'J-Pop', 'J-Pop'),
                 builder.CardAction.imBack(session, 'Jazz', 'Jazz')

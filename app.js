@@ -38,10 +38,13 @@ var bot = module.exports = new builder.UniversalBot(connector, [
     // ヒーローカードを使用している
     (session, args, next) => {
         loger.log('start', session.message);
+
         // 返信する為のデータを作成する
         var chatData = new builder.Message(session);
+
         // 表示するときのレイアウトを設定する
         chatData.attachmentLayout(builder.AttachmentLayout.carousel);
+
         // データの中身を定義する 以下では、ヒーローカードのみ設定している
         chatData.attachments([
             new builder.HeroCard(session)
@@ -57,6 +60,7 @@ var bot = module.exports = new builder.UniversalBot(connector, [
                     builder.CardAction.imBack(session, 'Image', '画像')
                 ])
         ]);
+
         // 次のユーザーのメッセージはテキストに限定させる
         // .number や .timeなども存在する(botbuilder\lib\botbuilder.d.ts:3349行目)
         // ユーザーが以下で指定したもの以外のデータを入力すると、

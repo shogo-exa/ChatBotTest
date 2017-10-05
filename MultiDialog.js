@@ -22,6 +22,8 @@ lib.dialog('/', [
 
         // getNameダイアログの終了時に返信結果が登録されているはずなのでその存在をチェックしている
         if (results.response) {
+
+
             // 先のダイアログでは名前を取得しているのでそれを受け取っている
             // session.privateConversationDataは、ユーザー個人の情報を会話終了まで保持することが出来る領域
             // その他にもconversationDataなどもあるが、会話に参加している他ユーザーからも参照可能などスコープの違いがある
@@ -46,6 +48,7 @@ lib.dialog('/', [
             session.endConversation(`Sorry, I didn't understand the response. Let's start over.`);
         }
     },
+
     // ダイアログを途中でキャンセルする為の定義
     // 第1引数：このアクションの名前を定義
     // 第2引数：キャンセルされた時にユーザーへその文字列が送信される
@@ -73,6 +76,7 @@ lib.dialog('getName', [
 
         // 名前として有効かどうかをチェックしている (ここでは長さのみ)
         if (!name || name.trim().length < 3) {
+
             // ある程度失敗すると終了させないと、正常な値をユーザーが入力するまで
             // いつまでも状態が変わらない事になり、UXが非常に悪くなってしまう。
             // それを回避する為に1度失敗しているならこのダイアログを終了させる
@@ -91,11 +95,23 @@ lib.dialog('getName', [
             session.endDialogWithResult({ response: name.trim() });
         }
     }
+
+    //ダイアログの処理中に特定の文字列をユーザーが入力した時にダイアログを終了出来るようにするための定義
+    //※これが処理をされると、親ダイアログが再開されるがキャンセルされた時の制御の方法がまだ良くわかっていない
 ]).cancelAction('cancelMultiDialog', "canceled", {
+
     // キャンセルのトリガーとなるパターンを定義
     matches: /^cancel/i,
+
     // キャンセルを再度確認する為にユーザーへ送信される文字列
+    // yes no の判定をする為の文字列がどこで定義されているのかわかっていない
     confirmPrompt: "Are you sure?",
+
+    //以下でキャンセルが走った時の挙動をカスタマイズ出来るが、キャンセルの確認を
+    //するタイミングで走ったり、yesの応答が帰ってきた後走らなかったりと挙動がまだよく分かっていない
+    // ICancelActionOptions: (session, args, next) => {
+
+    // }
 });
 
 // 年齢を取得するためのダイアログ
@@ -134,11 +150,21 @@ lib.dialog('getAge', [
             session.endDialogWithResult({ response: age });
         }
     }
+
+    //ダイアログの処理中に特定の文字列をユーザーが入力した時にダイアログを終了出来るようにするための定義
+    //※これが処理をされると、親ダイアログが再開されるがキャンセルされた時の制御の方法がまだ良くわかっていない
 ]).cancelAction('cancelMultiDialog', "canceled", {
     // キャンセルのトリガーとなるパターンを定義
     matches: /^cancel/i,
     // キャンセルを再度確認する為にユーザーへ送信される文字列
+    // yes no の判定をする為の文字列がどこで定義されているのかわかっていない
     confirmPrompt: "Are you sure?",
+
+    //以下でキャンセルが走った時の挙動をカスタマイズ出来るが、キャンセルの確認を
+    //するタイミングで走ったり、yesの応答が帰ってきた後走らなかったりと挙動がまだよく分かっていない
+    // ICancelActionOptions: (session, args, next) => {
+
+    // }
 });
 
 // Export createLibrary() function

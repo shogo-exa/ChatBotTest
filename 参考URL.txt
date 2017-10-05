@@ -1,0 +1,9 @@
+参考URL一覧
+botframeworkのドキュメント
+https://docs.microsoft.com/en-us/bot-framework/#pivot=main&panel=overview
+
+botframeworkのリファレンス
+https://docs.botframework.com/en-us/node/builder/chat-reference/modules/_botbuilder_d_.html
+
+MS提供のbotframeworkのサンプル
+https://github.com/Microsoft/BotBuilder
